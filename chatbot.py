@@ -1,15 +1,11 @@
-from rules import match_rule
-from memory import UserMemory
+# memory.py
 
-class LifePartnerChatbot:
-    def __init__(self):
-        self.memory = UserMemory()
-        self.running = True
+_sessions = {}
 
-    def respond(self, user_input):
-        response, action = match_rule(user_input, self.memory)
-
-        if action == "EXIT":
-            self.running = False
-
-        return response
+def get_memory(session_id: str):
+    if session_id not in _sessions:
+        _sessions[session_id] = {
+            "language": None,
+            "last_message": None
+        }
+    return _sessions[session_id]
